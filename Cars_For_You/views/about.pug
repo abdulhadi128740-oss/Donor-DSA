@@ -1,0 +1,44 @@
+extends layout
+
+block content
+  div.container.py-5
+    div.row.justify-content-center
+      div.col-md-10
+        div.text-center.mb-5
+          h1.display-4.text-primary About VehicleManager Pro
+          p.lead.text-muted A Comprehensive Online Vehicle Management Solution
+        
+        div.row.mb-5
+          div.col-md-6
+            h3 Website Overview
+            p.text-secondary
+              | This website is a centralized management system designed to streamline the process of 
+              | tracking, documenting, and managing a fleet of vehicles. Whether for a car dealership, 
+              | a corporate fleet, or a private collection, this system provides real-time data 
+              | insights and secure administrative control.
+          div.col-md-6
+            h3 Key Functionalities
+            ul.text-secondary
+              li #[strong Real-time Analytics:] Instant visualization of inventory breakdown.
+              li #[strong Secure Management:] Hashed password protection for administrative access.
+              li #[strong Fleet Tracking:] Full CRUD capabilities for owner details and registration.
+              li #[strong Documentation:] Image storage and record-keeping for every entry.
+
+        div.card.bg-light.border-0.shadow-sm.p-4
+          h4.text-center.mb-4 System Architecture (Tech Stack)
+          div.row.text-center
+            div.col-md-3
+              h6 Backend
+              p.small Node.js / Express
+            div.col-md-3
+              h6 Database
+              p.small MongoDB / Mongoose
+            div.col-md-3
+              h6 Frontend
+              p.small Pug / Bootstrap 5
+            div.col-md-3
+              h6 Security
+              p.small BcryptJS / Sessions
+
+    div.text-center.mt-5.text-muted
+      p Created as a Semester Project for Web Programming | Riphah International University

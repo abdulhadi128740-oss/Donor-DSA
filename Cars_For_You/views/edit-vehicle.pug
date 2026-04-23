@@ -1,0 +1,28 @@
+extends layout
+
+block content
+  h2 Edit Vehicle Details
+  hr
+  div.card.p-4.shadow-sm
+    form(action=`/edit/${vehicle._id}` method="POST")
+      div.mb-3
+        label.form-label Owner Name
+        input.form-control(type="text" name="ownerName" value=vehicle.ownerName required)
+      
+      div.mb-3
+        label.form-label Vehicle Type
+        select.form-select(name="vehicleType")
+          option(value="Car" selected=vehicle.vehicleType==='Car') Car
+          option(value="Bike" selected=vehicle.vehicleType==='Bike') Bike
+          option(value="Truck" selected=vehicle.vehicleType==='Truck') Truck
+      
+      div.mb-3
+        label.form-label Registration Number
+        input.form-control(type="text" name="regNumber" value=vehicle.regNumber required)
+      
+      div.mb-3
+        label.form-label Model Year
+        input.form-control(type="number" name="modelYear" value=vehicle.modelYear)
+      
+      button.btn.btn-primary(type="submit") Update Vehicle
+      a.btn.btn-link(href="/") Cancel

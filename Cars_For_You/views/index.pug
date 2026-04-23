@@ -1,0 +1,91 @@
+extends layout
+
+block content
+  h1.mb-4 Vehicle Management Dashboard
+
+  //- 1. Statistics Cards
+  div.row.mb-4
+    div.col-md-3
+      div.card.bg-primary.text-white.text-center.p-3.shadow-sm
+        h6 TOTAL VEHICLES
+        h2= stats.total
+    div.col-md-3
+      div.card.bg-success.text-white.text-center.p-3.shadow-sm
+        h6 CARS
+        h2= stats.cars
+    div.col-md-3
+      div.card.bg-info.text-white.text-center.p-3.shadow-sm
+        h6 BIKES
+        h2= stats.bikes
+    div.col-md-3
+      div.card.bg-warning.text-dark.text-center.p-3.shadow-sm
+        h6 TRUCKS
+        h2= stats.trucks
+
+  //- 2. Chart Section
+  div.row.mb-5
+    div.col-md-6.mx-auto
+      div.card.shadow-sm.p-3
+        h5.text-center.mb-3 Inventory Breakdown
+        canvas#myVehicleChart(width="400" height="200")
+  
+  //- 3. Search and Action Bar
+  div.d-flex.justify-content-between.mb-3
+    form(action="/" method="GET" class="d-flex gap-2")
+      input.form-control(type="text" name="search" placeholder="Search Reg #" value=searched)
+      button.btn.btn-primary(type="submit") Search
+      if searched
+        a.btn.btn-outline-secondary(href="/") Clear
+    a.btn.btn-success(href="/add") + Register Vehicle
+
+  //- 4. Data Table
+  div.table-responsive.shadow-sm
+    table.table.table-bordered.table-striped.align-middle
+      thead.table-dark
+        tr
+          th Photo
+          th Owner
+          th Type
+          th Reg #
+          th Date
+          th Actions
+      tbody
+        if vehicles.length > 0
+          each veh in vehicles
+            tr
+              td
+                img(src='/uploads/' + veh.image width="50" height="50" style="object-fit: cover; border-radius: 5px;")
+              td= veh.ownerName
+              td= veh.vehicleType
+              td= veh.regNumber
+              td= veh.createdAt.toLocaleDateString()
+              td.d-flex.gap-2
+                a.btn.btn-info.btn-sm(href="/service/" + veh._id) 🛠️ Service
+                a.btn.btn-warning.btn-sm(href="/edit/" + veh._id) Edit
+                form(action="/delete/" + veh._id method="POST" onsubmit="return confirm('Are you sure?')")
+                  button.btn.btn-danger.btn-sm(type="submit") Delete
+        else
+          tr
+            td.text-center(colspan="6") No records found.
+
+  //- 5. Scripts for Visualization
+  script(src="https://cdn.jsdelivr.net/npm/chart.js")
+  script.
+    const ctx = document.getElementById('myVehicleChart').getContext('2d');
+    new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+            labels: ['Cars', 'Bikes', 'Trucks'],
+            datasets: [{
+                data: [#{stats.cars}, #{stats.bikes}, #{stats.trucks}],
+                backgroundColor: ['#198754', '#0dcaf0', '#ffc107'],
+                hoverOffset: 4
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: { position: 'bottom' }
+            }
+        }
+    });

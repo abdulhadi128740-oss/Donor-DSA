@@ -1,0 +1,21 @@
+extends layout
+
+block content
+  div.container.mt-5
+    div.row.justify-content-center
+      div.col-md-6
+        div.card.shadow
+          div.card-body.p-5
+            h2.text-center Contact Support
+            p.text-center.text-muted Have questions? Send us a message.
+            form
+              div.mb-3
+                label.form-label Full Name
+                input.form-control(type="text" placeholder="Enter your name")
+              div.mb-3
+                label.form-label Email Address
+                input.form-control(type="email" placeholder="email@example.com")
+              div.mb-3
+                label.form-label Message
+                textarea.form-control(rows="4" placeholder="How can we help?")
+              button.btn.btn-primary.w-100(type="button" onclick="alert('Thank you! We will contact you soon.')") Send Message

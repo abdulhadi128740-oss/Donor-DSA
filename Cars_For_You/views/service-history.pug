@@ -1,0 +1,51 @@
+extends layout
+
+block content
+  div.d-flex.justify-content-between.align-items-center.mb-4
+    h2 Maintenance Report: #{vehicle.regNumber}
+    a.btn.btn-outline-secondary(href="/") Back to Dashboard
+
+  div.row
+    //- Column 1: Add New Service Form
+    div.col-md-4
+      div.card.shadow-sm.p-3
+        h5 Log New Service
+        hr
+        form(action="/service/add/" + vehicle._id method="POST")
+          div.mb-3
+            label Type
+            select.form-select(name="serviceType")
+              option Tuning
+              option Repair
+              option Wash
+              option Oil Change
+          div.mb-3
+            label Cost ($)
+            input.form-control(type="number" name="cost" required)
+          div.mb-3
+            label Notes
+            textarea.form-control(name="description" rows="2")
+          button.btn.btn-primary.w-100(type="submit") Add Record
+
+    //- Column 2: History Table & Total Cost
+    div.col-md-8
+      div.card.shadow-sm.p-3
+        h5 Service History
+        table.table.mt-3
+          thead
+            tr
+              th Date
+              th Type
+              th Notes
+              th Cost
+          tbody
+            each item in history
+              tr
+                td= item.date.toLocaleDateString()
+                td= item.serviceType
+                td= item.description
+                td $#{item.cost}
+        
+        div.alert.alert-info.mt-3.d-flex.justify-content-between
+          strong Total Maintenance Investment:
+          strong $#{totalSpent}

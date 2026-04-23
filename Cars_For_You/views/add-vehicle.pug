@@ -1,0 +1,34 @@
+extends layout
+
+block content
+  h2 Register a New Vehicle
+  hr
+  div.card.p-4.shadow-sm
+    form(action="/add" method="POST" enctype="multipart/form-data")
+      div.mb-3
+        label.form-label Owner Name
+        input.form-control(type="text" name="ownerName" placeholder="e.g. Ali Khan" required)
+      
+      div.mb-3
+        label.form-label Vehicle Type
+        select.form-select(name="vehicleType")
+          option(value="Car") Car
+          option(value="Bike") Bike
+          option(value="Truck") Truck
+
+      div.mb-3
+        label.form-label Registration Number
+        input.form-control(type="text" name="regNumber" placeholder="LES-1234" required)
+      
+      div.mb-3
+        label.form-label Model Year
+        input.form-control(type="number" name="modelYear" value="2024")
+      
+      button.btn.btn-success(type="submit") Save to Database
+      a.btn.btn-link(href="/") Back to Home
+
+      div.mb-3
+      label.form-label Vehicle Photo
+      input.form-control(type="file" name="image" accept="image/*")
+    
+    button.btn.btn-success(type="submit") Save Vehicle
